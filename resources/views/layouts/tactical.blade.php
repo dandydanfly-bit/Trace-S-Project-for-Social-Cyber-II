@@ -25,10 +25,16 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
+            slate: {
+              850: '#141c2e',
+              900: '#0f172a',
+              925: '#0b0f19',
+              950: '#070a12',
+            },
             neutral: {
-              850: '#1f1f1f',
-              900: '#121212',
-              950: '#0a0a0a',
+              850: '#141c2e',
+              900: '#0f172a',
+              950: '#0b0f19',
             }
           }
         }
@@ -39,8 +45,8 @@
   <style>
     /* Tactical extreme dark mode adjustments */
     body {
-      background-color: #0a0a0a;
-      color: #d4d4d4;
+      background-color: #0b0f19;
+      color: #cbd5e1;
       font-family: 'Inter', sans-serif;
     }
     .font-mono {
@@ -52,134 +58,136 @@
       height: 5px;
     }
     ::-webkit-scrollbar-track {
-      background: #0a0a0a;
+      background: #0b0f19;
     }
     ::-webkit-scrollbar-thumb {
-      background: #262626;
-      border-radius: 1px;
+      background: #1e293b;
+      border-radius: 2px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #404040;
+      background: #334155;
+    }
+    @keyframes radar-ripple {
+      0% { transform: scale(0.6); opacity: 0.9; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+    .animate-radar-ripple {
+      animation: radar-ripple 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
     }
   </style>
   @stack('styles')
 </head>
-<body class="bg-neutral-950 text-neutral-300 min-h-screen flex flex-col antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+<body class="bg-[#0b0f19] text-slate-300 min-h-screen flex flex-col antialiased selection:bg-blue-500/30 selection:text-blue-200">
 
   <!-- START: TOP BAR -->
-  <header class="h-14 bg-neutral-900 border-b border-neutral-800 px-4 flex items-center justify-between shrink-0 select-none z-30">
+  <header class="h-14 bg-[#0d131f] border-b border-slate-800/80 px-4 flex items-center justify-between shrink-0 select-none z-30">
     <div class="flex items-center gap-3">
-      <div class="w-8 h-8 rounded-sm bg-cyan-950/60 border border-cyan-500/50 flex items-center justify-center text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.25)]">
+      <div class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.3)]">
         <i class="fa-solid fa-shield-halved text-sm"></i>
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <span class="font-mono font-bold tracking-wider text-sm text-neutral-100">TRACE-S</span>
-          <span class="text-[9px] font-mono tracking-widest text-cyan-400 px-1.5 py-0.2 border border-cyan-500/30 bg-cyan-950/40 rounded-sm">C4ISR</span>
-          <span class="text-[9px] font-mono tracking-widest text-amber-500 px-1.5 py-0.2 border border-amber-500/40 bg-amber-950/30 rounded-sm">SIMULASI</span>
+          <span class="font-bold tracking-wider text-sm text-white">TRACE-S</span>
+          <span class="text-[9px] font-mono tracking-widest text-cyan-400 px-1.5 py-0.2 border border-cyan-500/30 bg-cyan-950/40 rounded">C4ISR</span>
+          <span class="text-[9px] font-mono tracking-widest text-amber-400 px-1.5 py-0.2 border border-amber-500/40 bg-amber-950/30 rounded">SIMULASI</span>
         </div>
-        <div class="text-[10px] font-mono uppercase tracking-widest text-neutral-500 leading-none">
-          COGNITIVE DEFENSE INITIATIVE // PUSSIBERAD
+        <div class="text-[9px] font-mono uppercase tracking-widest text-slate-400 leading-none">
+          SOCIAL CYBER INTELLIGENCE
         </div>
       </div>
     </div>
 
-    <!-- Center Clock & Coordinates -->
-    <div class="hidden md:flex items-center gap-6 font-mono text-xs">
-      <div class="flex items-center gap-2 text-neutral-400">
-        <i class="fa-regular fa-clock text-cyan-400 text-[11px]"></i>
-        <span id="utc-clock" class="tracking-widest">--:--:-- UTC</span>
+    <!-- Center Clock, Coordinates & Status Indicators -->
+    <div class="hidden lg:flex items-center gap-6 font-mono text-xs">
+      <div class="flex items-center gap-2 text-slate-300">
+        <i class="fa-regular fa-clock text-slate-400 text-xs"></i>
+        <span id="utc-clock" class="tracking-wide">UTC 00:42:17 Mon, 03 Nov 2025</span>
       </div>
-      <div class="text-neutral-600 text-[10px]">|</div>
-      <div class="flex items-center gap-2 text-neutral-400">
-        <i class="fa-solid fa-location-crosshairs text-cyan-400 text-[11px]"></i>
-        <span class="text-[11px] tracking-wider text-neutral-400">06°10'30"S 106°49'42"E (HQ)</span>
+      <div class="text-slate-700 text-xs">|</div>
+      <div class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-slate-300 text-[11px]">Secure Link <b class="text-emerald-400 font-normal">Operational</b></span>
+      </div>
+      <div class="text-slate-700 text-xs">|</div>
+      <div class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-slate-300 text-[11px]">AI Server <b class="text-emerald-400 font-bold">ONLINE</b></span>
+      </div>
+      <div class="text-slate-700 text-xs">|</div>
+      <div class="px-2.5 py-1 bg-slate-800/80 border border-slate-700/70 rounded-full text-[11px] text-slate-300 flex items-center gap-1.5">
+        <i class="fa-solid fa-microchip text-blue-400 text-[10px]"></i>
+        <span>Model: <b class="text-blue-400 font-semibold">Llama-3.1-70B</b></span>
       </div>
     </div>
 
     <!-- Right Controls: Status Link & User Profile -->
     <div class="flex items-center gap-3">
-      <!-- AI Engine Indicator -->
-      @php
-        $aiStatus = app(App\Services\Ai\AiManager::class)->status();
-      @endphp
-      <div class="hidden sm:flex items-center gap-2 px-2.5 py-1 bg-neutral-950 border border-neutral-800 rounded-sm font-mono text-[11px]">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 {{ $aiStatus['status'] === 'ONLINE' ? 'bg-emerald-400' : 'bg-cyan-400' }}"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 {{ $aiStatus['status'] === 'ONLINE' ? 'bg-emerald-500' : 'bg-cyan-500' }}"></span>
-        </span>
-        <span class="text-neutral-400 text-[10px] uppercase">AI:</span>
-        <span class="text-cyan-400 font-semibold">{{ $aiStatus['driver'] }}</span>
-        <span class="text-neutral-500 text-[9px] uppercase">({{ $aiStatus['status'] }})</span>
-      </div>
-
       <!-- User Clearance Badge -->
       @auth
-      <div class="flex items-center gap-2 pl-2 border-l border-neutral-800">
-        <div class="text-right">
-          <div class="text-xs font-semibold text-neutral-200 leading-tight">{{ Auth::user()->name }}</div>
-          <div class="flex items-center justify-end gap-1.5 mt-0.5">
-            <span class="text-[9px] font-mono uppercase px-1 py-0.2 rounded-sm border border-neutral-700 bg-neutral-800 text-neutral-300">
-              {{ Auth::user()->roleLabel() }}
-            </span>
-            <span class="text-[9px] font-mono uppercase px-1 py-0.2 rounded-sm border border-rose-600/40 bg-rose-950/30 text-rose-400">
-              {{ Auth::user()->clearance_level }}
-            </span>
+      <div class="relative" id="user-menu-wrapper">
+        <button id="user-menu-btn" class="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/70 transition-colors text-left" aria-label="Menu Pengguna">
+          <div class="w-7 h-7 rounded-full bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-xs text-blue-400">
+            <i class="fa-solid fa-user"></i>
           </div>
-        </div>
+          <div class="leading-tight hidden sm:block">
+            <div class="text-xs font-semibold text-slate-100">{{ Auth::user()->name }}</div>
+            <div class="text-[10px] text-slate-400 font-mono">Level: {{ Auth::user()->roleLabel() }}</div>
+          </div>
+          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+        </button>
 
-        <!-- Quick Switch Roles / Logout Dropdown -->
-        <div class="relative" id="user-menu-wrapper">
-          <button id="user-menu-btn" class="w-8 h-8 rounded-sm bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 flex items-center justify-center text-neutral-300 transition-colors" aria-label="Menu Pengguna">
-            <i class="fa-solid fa-user-shield text-xs"></i>
-          </button>
-          <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-neutral-900 border border-neutral-800 rounded-sm shadow-xl p-2 z-50 text-xs">
-            <div class="px-2 py-1.5 border-b border-neutral-800 mb-1">
-              <div class="text-[10px] uppercase tracking-wider text-neutral-500 font-mono">Beralih Peran (Evaluasi):</div>
-            </div>
-            <div class="space-y-1">
-              <form action="{{ route('login.quick') }}" method="POST">
-                @csrf
-                <input type="hidden" name="role" value="operator">
-                <button type="submit" class="w-full text-left px-2 py-1.5 rounded-sm hover:bg-neutral-800 font-mono text-[11px] flex items-center justify-between {{ Auth::user()->role === 'operator' ? 'text-cyan-400 font-bold' : 'text-neutral-400' }}">
-                  <span><i class="fa-solid fa-desktop w-4 text-center"></i> Operator</span>
-                  @if(Auth::user()->role === 'operator') <i class="fa-solid fa-check text-[10px]"></i> @endif
-                </button>
-              </form>
-              <form action="{{ route('login.quick') }}" method="POST">
-                @csrf
-                <input type="hidden" name="role" value="analis">
-                <button type="submit" class="w-full text-left px-2 py-1.5 rounded-sm hover:bg-neutral-800 font-mono text-[11px] flex items-center justify-between {{ Auth::user()->role === 'analis' ? 'text-cyan-400 font-bold' : 'text-neutral-400' }}">
-                  <span><i class="fa-solid fa-magnifying-glass-chart w-4 text-center"></i> Analis</span>
-                  @if(Auth::user()->role === 'analis') <i class="fa-solid fa-check text-[10px]"></i> @endif
-                </button>
-              </form>
-              <form action="{{ route('login.quick') }}" method="POST">
-                @csrf
-                <input type="hidden" name="role" value="komandan">
-                <button type="submit" class="w-full text-left px-2 py-1.5 rounded-sm hover:bg-neutral-800 font-mono text-[11px] flex items-center justify-between {{ Auth::user()->role === 'komandan' ? 'text-cyan-400 font-bold' : 'text-neutral-400' }}">
-                  <span><i class="fa-solid fa-star w-4 text-center"></i> Komandan</span>
-                  @if(Auth::user()->role === 'komandan') <i class="fa-solid fa-check text-[10px]"></i> @endif
-                </button>
-              </form>
-              <form action="{{ route('login.quick') }}" method="POST">
-                @csrf
-                <input type="hidden" name="role" value="admin">
-                <button type="submit" class="w-full text-left px-2 py-1.5 rounded-sm hover:bg-neutral-800 font-mono text-[11px] flex items-center justify-between {{ Auth::user()->role === 'admin' ? 'text-cyan-400 font-bold' : 'text-neutral-400' }}">
-                  <span><i class="fa-solid fa-key w-4 text-center"></i> Administrator</span>
-                  @if(Auth::user()->role === 'admin') <i class="fa-solid fa-check text-[10px]"></i> @endif
-                </button>
-              </form>
-            </div>
-            <div class="border-t border-neutral-800 mt-2 pt-1">
-              <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="w-full text-left px-2 py-1.5 rounded-sm hover:bg-rose-950/40 text-rose-400 font-mono text-[11px] flex items-center gap-2">
-                  <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i>
-                  <span>Keluar Sesi Terminal</span>
-                </button>
-              </form>
-            </div>
+        <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 z-50 text-xs font-sans">
+          <div class="px-2.5 py-1.5 border-b border-slate-800 mb-1">
+            <div class="text-[10px] uppercase tracking-wider text-slate-400 font-mono">Beralih Peran (Evaluasi Juri):</div>
+          </div>
+          <div class="space-y-1">
+            <form action="{{ route('login.quick') }}" method="POST">
+              @csrf
+              <input type="hidden" name="role" value="operator">
+              <button type="submit" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs flex items-center justify-between {{ Auth::user()->role === 'operator' ? 'text-blue-400 font-bold bg-blue-950/30' : 'text-slate-300' }}">
+                <span><i class="fa-solid fa-desktop w-4 text-center mr-1 text-slate-400"></i> Operator (Level-1)</span>
+                @if(Auth::user()->role === 'operator') <i class="fa-solid fa-check text-[10px]"></i> @endif
+              </button>
+            </form>
+            <form action="{{ route('login.quick') }}" method="POST">
+              @csrf
+              <input type="hidden" name="role" value="analis">
+              <button type="submit" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs flex items-center justify-between {{ Auth::user()->role === 'analis' ? 'text-blue-400 font-bold bg-blue-950/30' : 'text-slate-300' }}">
+                <span><i class="fa-solid fa-magnifying-glass-chart w-4 text-center mr-1 text-blue-400"></i> Analis (Level-2)</span>
+                @if(Auth::user()->role === 'analis') <i class="fa-solid fa-check text-[10px]"></i> @endif
+              </button>
+            </form>
+            <form action="{{ route('login.quick') }}" method="POST">
+              @csrf
+              <input type="hidden" name="role" value="komandan">
+              <button type="submit" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs flex items-center justify-between {{ Auth::user()->role === 'komandan' ? 'text-blue-400 font-bold bg-blue-950/30' : 'text-slate-300' }}">
+                <span><i class="fa-solid fa-star w-4 text-center mr-1 text-slate-400"></i> Komandan (Level-3)</span>
+                @if(Auth::user()->role === 'komandan') <i class="fa-solid fa-check text-[10px]"></i> @endif
+              </button>
+            </form>
+            <form action="{{ route('login.quick') }}" method="POST">
+              @csrf
+              <input type="hidden" name="role" value="admin">
+              <button type="submit" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-800 text-xs flex items-center justify-between {{ Auth::user()->role === 'admin' ? 'text-blue-400 font-bold bg-blue-950/30' : 'text-slate-300' }}">
+                <span><i class="fa-solid fa-server w-4 text-center mr-1 text-slate-400"></i> Administrator (Level-4)</span>
+                @if(Auth::user()->role === 'admin') <i class="fa-solid fa-check text-[10px]"></i> @endif
+              </button>
+            </form>
+          </div>
+          <div class="border-t border-slate-800 mt-2 pt-1">
+            <form action="{{ route('logout') }}" method="POST">
+              @csrf
+              <button type="submit" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-rose-950/40 text-rose-400 text-xs flex items-center gap-2">
+                <i class="fa-solid fa-arrow-right-from-bracket w-4 text-center"></i>
+                <span>Keluar Sesi Terminal</span>
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -192,113 +200,105 @@
   <div class="flex-1 flex overflow-hidden">
 
     <!-- START: LEFT SIDEBAR -->
-    <aside class="w-60 bg-neutral-900 border-r border-neutral-800 flex flex-col justify-between shrink-0 select-none overflow-y-auto">
-      <div class="py-2">
-        <div class="px-3 py-1.5 text-[10px] uppercase tracking-widest text-neutral-500 font-mono">Modul Analisis</div>
+    <aside class="w-64 bg-[#0d131f] border-r border-slate-800/80 flex flex-col justify-between shrink-0 select-none overflow-y-auto">
+      <div class="py-3 px-3 space-y-4">
+        
+        <!-- Category 1: INTELLIGENCE -->
+        <div>
+          <div class="px-3 pb-1 text-[10px] uppercase tracking-wider text-slate-400 font-mono font-semibold">INTELLIGENCE</div>
+          <nav class="space-y-0.5">
+            <a href="{{ route('dashboard') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('dashboard*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-chart-line w-4 text-center text-blue-400"></i>
+              <span class="flex-1 text-left">Early Warning Dashboard</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+            </a>
+          </nav>
+        </div>
 
-        <nav class="space-y-0.5">
-          <!-- Modul A: Early Warning Dashboard -->
-          <a href="{{ route('dashboard') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('dashboard*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-chart-line w-4 text-center"></i>
-            <span class="flex-1 text-left">Early Warning</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          </a>
+        <!-- Category 2: ANALYSIS -->
+        <div>
+          <div class="px-3 pb-1 text-[10px] uppercase tracking-wider text-slate-400 font-mono font-semibold">ANALYSIS</div>
+          <nav class="space-y-0.5">
+            <a href="{{ route('scanner.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('scanner*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-magnifying-glass w-4 text-center"></i>
+              <span class="flex-1 text-left">Credibility Scanner</span>
+            </a>
+            <a href="{{ route('network.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('network*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-circle-nodes w-4 text-center"></i>
+              <span class="flex-1 text-left">Threat Actor Network</span>
+            </a>
+            <a href="{{ route('sentiment.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('sentiment*') ? 'border-violet-500 bg-violet-950/30 text-violet-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-heart-pulse w-4 text-center text-violet-400"></i>
+              <span class="flex-1 text-left">Sentiment Analysis</span>
+              <span class="text-[9px] px-1 bg-violet-950/60 border border-violet-500/30 text-violet-400 rounded">A2</span>
+            </a>
+          </nav>
+        </div>
 
-          <!-- Modul A2: Sentiment Analysis Dashboard (Palet Violet PRD v2.0 §10.2B) -->
-          <a href="{{ route('sentiment.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('sentiment*') ? 'border-violet-500 text-violet-300 bg-violet-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-heart-pulse w-4 text-center text-violet-400"></i>
-            <span class="flex-1 text-left">Sentiment Analysis</span>
-            <span class="text-[9px] px-1 bg-violet-950/60 border border-violet-500/30 text-violet-400 rounded-sm">A2</span>
-          </a>
+        <!-- Category 3: REPORTING -->
+        <div>
+          <div class="px-3 pb-1 text-[10px] uppercase tracking-wider text-slate-400 font-mono font-semibold">REPORTING</div>
+          <nav class="space-y-0.5">
+            <a href="{{ route('reports.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('reports*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-regular fa-file-lines w-4 text-center"></i>
+              <span class="flex-1 text-left">Intelligence Reports</span>
+            </a>
+            <a href="{{ route('cases.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('cases*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-folder-closed w-4 text-center"></i>
+              <span class="flex-1 text-left">Investigasi Kasus</span>
+              <span class="text-[9px] px-1 bg-slate-800 text-cyan-400 rounded font-mono">TS-001</span>
+            </a>
+          </nav>
+        </div>
 
-          <!-- Modul G: Case Management -->
-          <a href="{{ route('cases.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('cases*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-folder-closed w-4 text-center"></i>
-            <span class="flex-1 text-left">Investigasi Kasus</span>
-            <span class="text-[9px] text-cyan-400 font-mono">TS-001</span>
-          </a>
+        <!-- Category 4: AI SYSTEM -->
+        <div>
+          <div class="px-3 pb-1 text-[10px] uppercase tracking-wider text-slate-400 font-mono font-semibold">AI SYSTEM</div>
+          <nav class="space-y-0.5">
+            <a href="{{ route('console.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('console*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-microchip w-4 text-center"></i>
+              <span class="flex-1 text-left">AI Analyst Console</span>
+            </a>
+            @if(Auth::check() && Auth::user()->hasRole('admin'))
+            <a href="{{ route('admin.ai.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('admin.ai*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-gear w-4 text-center"></i>
+              <span class="flex-1 text-left">Local AI Management</span>
+              <span class="text-[9px] px-1 bg-slate-800 text-slate-400 rounded font-mono">ADMIN ONLY</span>
+            </a>
+            <a href="{{ route('admin.audit.index') }}" class="w-full flex items-center gap-3 px-3 py-2 rounded-lg border-l-2 text-xs transition-colors {{ request()->routeIs('admin.audit*') ? 'border-blue-500 bg-blue-600/15 text-blue-300 font-medium' : 'border-transparent text-slate-400 hover:bg-slate-800/60 hover:text-slate-200' }}">
+              <i class="fa-solid fa-clock-rotate-left w-4 text-center"></i>
+              <span class="flex-1 text-left">Audit Log (Immutable)</span>
+            </a>
+            @endif
+          </nav>
+        </div>
 
-          <!-- Modul B: Credibility Scanner -->
-          <a href="{{ route('scanner.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('scanner*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-shield-halved w-4 text-center"></i>
-            <span class="flex-1 text-left">Credibility Scanner</span>
-            <span class="text-[9px] px-1 bg-neutral-800 text-neutral-400 rounded-sm">3 Tab</span>
-          </a>
-
-          <!-- Modul C: Threat Actor Network & Spread Analysis -->
-          <a href="{{ route('network.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('network*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-diagram-project w-4 text-center"></i>
-            <span class="flex-1 text-left">Spread Analysis</span>
-            <span class="text-[9px] text-amber-500 font-mono">SNA</span>
-          </a>
-
-          <!-- Modul D: Command Reporting & Evidence -->
-          <a href="{{ route('reports.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('reports*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-file-shield w-4 text-center"></i>
-            <span class="flex-1 text-left">Intel Brief (PDF)</span>
-            <span class="text-[9px] text-emerald-400 font-mono">16-SEC</span>
-          </a>
-
-          <!-- Modul E: AI Analyst Console -->
-          <a href="{{ route('console.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('console*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-terminal w-4 text-center"></i>
-            <span class="flex-1 text-left">AI Analyst Console</span>
-            <span class="text-[9px] text-cyan-400 font-mono"><i class="fa-solid fa-microchip"></i></span>
-          </a>
-        </nav>
-
-        <!-- Admin Area -->
-        @if(Auth::check() && Auth::user()->hasRole('admin'))
-        <div class="px-3 pt-4 pb-1 text-[10px] uppercase tracking-widest text-neutral-500 font-mono">Administrasi & Konfigurasi</div>
-        <nav class="space-y-0.5">
-          <a href="{{ route('admin.ai.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('admin.ai*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-server w-4 text-center"></i>
-            <span class="flex-1 text-left">Local AI Management</span>
-          </a>
-          <a href="{{ route('admin.audit.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('admin.audit*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
-            <i class="fa-solid fa-clock-rotate-left w-4 text-center"></i>
-            <span class="flex-1 text-left">Audit Log (Immutable)</span>
-          </a>
-        </nav>
-        @endif
       </div>
 
-      <!-- Bottom Connector Nodes Status -->
-      <div class="p-3 border-t border-neutral-800/80 bg-neutral-950/60 text-[10px] font-mono space-y-2">
-        <div class="text-[9px] uppercase tracking-wider text-neutral-500 flex items-center justify-between">
-          <span>Konektor Data</span>
-          <span class="text-neutral-600">Trace-S</span>
-        </div>
-        <div class="flex items-center justify-between text-neutral-400">
-          <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> News / RSS Feed
-          </span>
-          <span class="text-emerald-500 text-[9px] font-semibold">ACTIVE</span>
-        </div>
-        <div class="flex items-center justify-between text-neutral-400">
-          <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> URL Evidence Fetch
-          </span>
-          <span class="text-emerald-500 text-[9px] font-semibold">ACTIVE</span>
-        </div>
-        <div class="flex items-center justify-between text-neutral-400">
-          <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Social Media API
-          </span>
-          <span class="text-amber-500 text-[9px]">SIMULASI</span>
-        </div>
-        <div class="flex items-center justify-between text-neutral-500">
-          <span class="flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-neutral-600"></span> Web Search Gateway
-          </span>
-          <span class="text-neutral-500 text-[9px]">NOT CONFIGURED</span>
+      <!-- Bottom Card in Sidebar (Matching Reference UI) -->
+      <div class="p-3 border-t border-slate-800/80 bg-slate-950/60 select-none">
+        <div class="p-3 bg-slate-900/90 border border-slate-800 rounded-xl relative overflow-hidden">
+          <div class="absolute -right-3 -bottom-3 w-14 h-14 bg-blue-500/10 rounded-full blur-xl pointer-events-none"></div>
+          <div class="flex items-center gap-2 mb-1">
+            <div class="w-6 h-6 rounded-md bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xs">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <span class="text-xs font-bold text-white tracking-wider">TRACE-S</span>
+          </div>
+          <div class="text-[9px] font-mono text-slate-400 uppercase tracking-wider mb-2">
+            SOCIAL CYBER INTELLIGENCE PLATFORM
+          </div>
+          <div class="text-[10px] text-slate-400 leading-relaxed font-sans">
+            Monitor. Analyze. Verify.<br>
+            <span class="text-blue-400 font-semibold">Deliver Intelligence.</span>
+          </div>
         </div>
       </div>
     </aside>
     <!-- END: LEFT SIDEBAR -->
 
     <!-- START: MAIN CONTENT -->
-    <main class="flex-1 overflow-y-auto bg-neutral-950 relative">
+    <main class="flex-1 overflow-y-auto bg-[#0b0f19] relative">
 
       <!-- Flash Notification Banners -->
       <div class="max-w-7xl mx-auto px-4 pt-3">

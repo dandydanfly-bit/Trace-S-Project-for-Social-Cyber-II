@@ -8,6 +8,7 @@ use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ScannerController;
+use App\Http\Controllers\SentimentController;
 use App\Http\Controllers\SpreadAnalysisController;
 use App\Http\Middleware\AuthenticateTrace;
 use App\Http\Middleware\RoleMiddleware;
@@ -33,6 +34,9 @@ Route::middleware([AuthenticateTrace::class])->group(function () {
     // Modul A: Early Warning Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/api/threat-feed', [DashboardController::class, 'threatFeed'])->name('api.threat-feed');
+
+    // Modul A2: Sentiment Analysis Dashboard (BARU PRD v2.0 §8.3 & §10.2B)
+    Route::get('/sentiment', [SentimentController::class, 'index'])->name('sentiment.index');
 
     // Modul B: Credibility Scanner, Authenticity Comparator, Cross-Source
     Route::get('/scanner', [ScannerController::class, 'index'])->name('scanner.index');

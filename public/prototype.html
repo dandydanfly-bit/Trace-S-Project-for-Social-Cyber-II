@@ -181,7 +181,14 @@
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
           </button>
 
-          <!-- 2. Investigasi Kasus (Case Management & Digital Locker) -->
+          <!-- 2. Sentiment Analysis Dashboard (Modul A2 - PRD v2.0 §8.3 & §10.2B) -->
+          <button data-view="sentiment" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 text-xs font-mono uppercase tracking-wider border-l-2 border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200 transition-colors">
+            <i class="fa-solid fa-heart-pulse w-4 text-center text-violet-400" aria-hidden="true"></i>
+            <span class="flex-1 text-left">Sentiment Analysis</span>
+            <span class="text-[9px] px-1 bg-violet-950/60 border border-violet-500/30 text-violet-400 rounded-sm">A2</span>
+          </button>
+
+          <!-- 3. Investigasi Kasus (Case Management & Digital Locker) -->
           <button data-view="cases" class="nav-btn w-full flex items-center gap-3 px-4 py-2.5 text-xs font-mono uppercase tracking-wider border-l-2 border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200 transition-colors">
             <i class="fa-solid fa-folder-closed w-4 text-center" aria-hidden="true"></i>
             <span class="flex-1 text-left">Investigasi Kasus</span>
@@ -419,6 +426,593 @@
           </div>
         </div>
         <!-- END: LIVE THREAT FEED -->
+      </section>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 2: SENTIMENT ANALYSIS DASHBOARD (MODUL A2 - PRD v2.0 §8.3 & §10.2B)    -->
+      <!-- ========================================================================= -->
+      <section id="view-sentiment" class="view-panel flex-col gap-5 w-full">
+        <!-- Header & Case Identification -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800 pb-3">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[9px] font-mono uppercase tracking-widest text-violet-400 px-2 py-0.5 bg-violet-950/40 border border-violet-500/40 rounded-sm">
+                MODUL A2 // PERCEPTION &amp; SENTIMENT
+              </span>
+              <span class="text-[9px] font-mono uppercase tracking-widest text-amber-400 px-2 py-0.5 bg-amber-950/40 border border-amber-500/40 rounded-sm">
+                SIMULASI AKTIF
+              </span>
+              <span class="text-[10px] font-mono text-neutral-500">KASUS: TS-001</span>
+            </div>
+            <h1 class="text-base font-bold font-mono tracking-wide text-neutral-100 uppercase flex items-center gap-2">
+              <i class="fa-solid fa-heart-pulse text-violet-400"></i>
+              <span>SENTIMENT DYNAMICS &amp; VELOCITY ALERT DASHBOARD</span>
+            </h1>
+            <p class="text-xs text-neutral-500 mt-0.5">Pemantauan spektrum emosi korpus siber sosial, rasio polaritas, dan deteksi lonjakan sentimen (Velocity Crisis).</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-mono px-3 py-1.5 border border-violet-500/40 bg-violet-950/30 text-violet-300 rounded-sm flex items-center gap-2">
+              <i class="fa-solid fa-waveform-lines text-violet-400"></i>
+              <span>VELOCITY ENGINE: ONLINE</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- START: MANDATORY DISCLAIMER BANNER (PRD v2.0 §8.3 & §10.2B) -->
+        <div class="p-3.5 bg-neutral-900 border-l-4 border-violet-500 rounded-sm border border-neutral-800 flex items-start gap-3">
+          <div class="w-7 h-7 rounded-sm bg-violet-950/60 border border-violet-500/40 flex items-center justify-center text-violet-400 shrink-0 mt-0.5">
+            <i class="fa-solid fa-scale-balanced text-xs"></i>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold text-violet-300 uppercase tracking-wide font-mono">
+                BATASAN CAKUPAN DAN METODOLOGI ETIK (PRD §8.3)
+              </span>
+              <span class="text-[9px] font-mono bg-violet-950 text-violet-400 px-1.5 py-0.2 border border-violet-500/30 rounded-sm">
+                NON-REPRESENTASI NASIONAL
+              </span>
+            </div>
+            <p class="text-xs text-neutral-300 leading-relaxed font-sans">
+              <strong class="text-violet-400">CAKUPAN TERBATAS:</strong> Skor polaritas dan emosi yang ditampilkan hanya mencerminkan korpus data yang berhasil dikumpulkan dari akun dan unggahan terpantau pada kasus <span class="font-mono text-neutral-200">[TS-001]</span>. Metrik ini <span class="underline decoration-violet-500">bukan</span> merupakan representasi mutlak dari seluruh opini publik atau populasi warga negara Indonesia. Algoritma mengukur persepsi linguistik agregat tanpa melakukan profiling data pribadi.
+            </p>
+          </div>
+        </div>
+        <!-- END: MANDATORY DISCLAIMER BANNER -->
+
+        <!-- Top 4 Summary Metric Cards (Violet Tactical Palette) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Card 1: Polaritas Terkini -->
+          <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[2px] bg-violet-500"></div>
+            <div class="flex items-center justify-between text-neutral-400 mb-2">
+              <span class="text-[10px] font-mono uppercase tracking-wider">Polaritas Korpus Terkini</span>
+              <i class="fa-solid fa-chart-pie text-violet-400 text-xs"></i>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-2xl font-bold font-mono text-rose-400">75%</span>
+              <span class="text-xs font-mono text-rose-500 uppercase">Negatif</span>
+            </div>
+            <div class="mt-2 text-[11px] text-neutral-400 font-mono flex items-center justify-between border-t border-neutral-800 pt-1.5">
+              <span>Netral: <strong class="text-neutral-200">20%</strong></span>
+              <span>Positif: <strong class="text-emerald-400">5%</strong></span>
+            </div>
+          </div>
+
+          <!-- Card 2: Velocity Index -->
+          <div class="bg-neutral-900 border border-violet-500/30 rounded-sm p-4 relative overflow-hidden bg-violet-950/10">
+            <div class="absolute top-0 left-0 w-full h-[2px] bg-rose-500"></div>
+            <div class="flex items-center justify-between text-neutral-400 mb-2">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-violet-300">Velocity Sebaran</span>
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-2xl font-bold font-mono text-neutral-100">+98</span>
+              <span class="text-xs font-mono text-rose-400">interaksi/jam</span>
+            </div>
+            <div class="mt-2 text-[11px] text-neutral-400 font-mono flex items-center justify-between border-t border-neutral-800 pt-1.5">
+              <span>Ambang Batas: <strong class="text-neutral-300">+30/j</strong></span>
+              <span class="text-rose-400 font-bold uppercase">KRISIS TERLAMPAUI</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Emosi Dominan -->
+          <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[2px] bg-amber-500"></div>
+            <div class="flex items-center justify-between text-neutral-400 mb-2">
+              <span class="text-[10px] font-mono uppercase tracking-wider">Emosi Dominan Korpus</span>
+              <i class="fa-solid fa-face-angry text-rose-400 text-xs"></i>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-xl font-bold font-mono text-amber-400">MARAH / MURKA</span>
+            </div>
+            <div class="mt-2 text-[11px] text-neutral-400 font-mono flex items-center justify-between border-t border-neutral-800 pt-1.5">
+              <span>Pangsa: <strong class="text-amber-300">46% dari korpus</strong></span>
+              <span class="text-neutral-500">Leksikal Diksi</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Platform Terdampak Tertinggi -->
+          <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[2px] bg-cyan-500"></div>
+            <div class="flex items-center justify-between text-neutral-400 mb-2">
+              <span class="text-[10px] font-mono uppercase tracking-wider">Vektor Sebaran Tercepat</span>
+              <i class="fa-brands fa-x-twitter text-cyan-400 text-xs"></i>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-xl font-bold font-mono text-neutral-100">X (Twitter)</span>
+              <span class="text-xs font-mono text-rose-400">88% Negatif</span>
+            </div>
+            <div class="mt-2 text-[11px] text-neutral-400 font-mono flex items-center justify-between border-t border-neutral-800 pt-1.5">
+              <span>Volume Pantau: <strong class="text-neutral-300">95 postingan</strong></span>
+              <span class="text-amber-400">Bot Amplified</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Analysis Section (2 Column Tactical Grid) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- Left: Main Dynamics (2 Cols) -->
+          <div class="lg:col-span-2 space-y-6">
+
+            <!-- Panel 1: 24-Hour Polarity Trend & Velocity Surge -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4">
+              <div class="flex items-center justify-between pb-3 border-b border-neutral-800 mb-4">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-chart-area text-violet-400 text-sm"></i>
+                  <h3 class="font-mono font-bold text-xs uppercase tracking-wider text-neutral-200">
+                    Riwayat Tren Polaritas Sentimen (24 Jam Terakhir)
+                  </h3>
+                </div>
+                <div class="flex items-center gap-3 text-[10px] font-mono">
+                  <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-rose-500 rounded-sm"></span> Negatif</div>
+                  <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-neutral-600 rounded-sm"></span> Netral</div>
+                  <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span> Positif</div>
+                </div>
+              </div>
+
+              <!-- Visual Stacked Bar Timelines -->
+              <div class="space-y-3">
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm hover:border-violet-500/40 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+                    <span class="text-violet-400 font-bold uppercase">24 Jam Lalu <span class="text-[10px] text-neutral-500 font-normal">| Korpus: 120 data</span></span>
+                    <div class="flex items-center gap-3 text-[11px]">
+                      <span class="text-neutral-400">Velocity: <strong class="text-neutral-300">+8/j</strong></span>
+                      <span class="text-rose-400">20% Neg</span>
+                      <span class="text-neutral-400">45% Neu</span>
+                      <span class="text-emerald-400">35% Pos</span>
+                    </div>
+                  </div>
+                  <div class="h-2.5 w-full bg-neutral-900 rounded-sm overflow-hidden flex">
+                    <div class="bg-rose-500 h-full" style="width: 20%"></div>
+                    <div class="bg-neutral-600 h-full" style="width: 45%"></div>
+                    <div class="bg-emerald-500 h-full" style="width: 35%"></div>
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm hover:border-violet-500/40 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+                    <span class="text-violet-400 font-bold uppercase">18 Jam Lalu <span class="text-[10px] text-neutral-500 font-normal">| Korpus: 195 data</span></span>
+                    <div class="flex items-center gap-3 text-[11px]">
+                      <span class="text-neutral-400">Velocity: <strong class="text-neutral-300">+15/j</strong></span>
+                      <span class="text-rose-400">30% Neg</span>
+                      <span class="text-neutral-400">42% Neu</span>
+                      <span class="text-emerald-400">28% Pos</span>
+                    </div>
+                  </div>
+                  <div class="h-2.5 w-full bg-neutral-900 rounded-sm overflow-hidden flex">
+                    <div class="bg-rose-500 h-full" style="width: 30%"></div>
+                    <div class="bg-neutral-600 h-full" style="width: 42%"></div>
+                    <div class="bg-emerald-500 h-full" style="width: 28%"></div>
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm hover:border-violet-500/40 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+                    <span class="text-violet-400 font-bold uppercase">12 Jam Lalu <span class="text-[10px] text-neutral-500 font-normal">| Korpus: 290 data</span></span>
+                    <div class="flex items-center gap-3 text-[11px]">
+                      <span class="text-neutral-400">Velocity: <strong class="text-amber-400">+24/j</strong></span>
+                      <span class="text-rose-400">40% Neg</span>
+                      <span class="text-neutral-400">38% Neu</span>
+                      <span class="text-emerald-400">22% Pos</span>
+                    </div>
+                  </div>
+                  <div class="h-2.5 w-full bg-neutral-900 rounded-sm overflow-hidden flex">
+                    <div class="bg-rose-500 h-full" style="width: 40%"></div>
+                    <div class="bg-neutral-600 h-full" style="width: 38%"></div>
+                    <div class="bg-emerald-500 h-full" style="width: 22%"></div>
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm hover:border-violet-500/40 transition-colors">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+                    <span class="text-violet-400 font-bold uppercase">6 Jam Lalu <span class="text-[10px] text-neutral-500 font-normal">| Korpus: 410 data</span></span>
+                    <div class="flex items-center gap-3 text-[11px]">
+                      <span class="text-neutral-400">Velocity: <strong class="text-rose-400">+52/j</strong></span>
+                      <span class="text-rose-400 font-bold">62% Neg</span>
+                      <span class="text-neutral-400">26% Neu</span>
+                      <span class="text-emerald-400">12% Pos</span>
+                    </div>
+                  </div>
+                  <div class="h-2.5 w-full bg-neutral-900 rounded-sm overflow-hidden flex">
+                    <div class="bg-rose-500 h-full" style="width: 62%"></div>
+                    <div class="bg-neutral-600 h-full" style="width: 26%"></div>
+                    <div class="bg-emerald-500 h-full" style="width: 12%"></div>
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-violet-500/50 rounded-sm bg-violet-950/20">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1.5">
+                    <span class="text-violet-300 font-bold uppercase flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-violet-400 animate-pulse"></span>
+                      Terkini (Real-time Snapshot)
+                      <span class="text-[10px] text-neutral-500 font-normal">| Korpus: 620 data</span>
+                    </span>
+                    <div class="flex items-center gap-3 text-[11px]">
+                      <span class="text-neutral-300">Velocity: <strong class="text-rose-400 font-bold">+98/j</strong></span>
+                      <span class="text-rose-400 font-bold">75% Neg</span>
+                      <span class="text-neutral-400">20% Neu</span>
+                      <span class="text-emerald-400">5% Pos</span>
+                    </div>
+                  </div>
+                  <div class="h-3 w-full bg-neutral-900 rounded-sm overflow-hidden flex">
+                    <div class="bg-rose-500 h-full" style="width: 75%"></div>
+                    <div class="bg-neutral-600 h-full" style="width: 20%"></div>
+                    <div class="bg-emerald-500 h-full" style="width: 5%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 p-2 bg-violet-950/20 border border-violet-500/20 rounded-sm flex items-center justify-between text-[11px] font-mono text-neutral-400">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-info text-violet-400"></i>
+                  <span>Dinamika: Lonjakan sentimen negatif dari 20% menjadi 75% terjadi dalam rentang 12 jam seiring sinkronisasi tagar terkoordinasi.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 2: 5 Emosi Dominan pada Korpus -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4">
+              <div class="flex items-center justify-between pb-3 border-b border-neutral-800 mb-4">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-brain-circuit text-violet-400 text-sm"></i>
+                  <h3 class="font-mono font-bold text-xs uppercase tracking-wider text-neutral-200">
+                    Distribusi 5 Spektrum Emosi Linguistik Korpus
+                  </h3>
+                </div>
+                <span class="text-[10px] font-mono text-violet-400 bg-violet-950/40 px-2 py-0.5 border border-violet-500/30 rounded-sm">
+                  NATURAL LANGUAGE EXTRACTION
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <span class="text-neutral-200 font-bold">Marah / Murka</span>
+                    </div>
+                    <span class="text-rose-400 font-bold">46%</span>
+                  </div>
+                  <div class="h-2 w-full bg-neutral-800 rounded-sm overflow-hidden mb-1">
+                    <div class="bg-rose-500 h-full" style="width: 46%"></div>
+                  </div>
+                  <div class="text-[11px] text-neutral-400 font-sans">
+                    <i class="fa-regular fa-quote-left text-[9px] text-neutral-600 mr-1"></i>
+                    Diksi penolakan keras terhadap narasi pemotongan anggaran program prioritas.
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                      <span class="text-neutral-200 font-bold">Takut / Cemas</span>
+                    </div>
+                    <span class="text-amber-400 font-bold">28%</span>
+                  </div>
+                  <div class="h-2 w-full bg-neutral-800 rounded-sm overflow-hidden mb-1">
+                    <div class="bg-amber-500 h-full" style="width: 28%"></div>
+                  </div>
+                  <div class="text-[11px] text-neutral-400 font-sans">
+                    <i class="fa-regular fa-quote-left text-[9px] text-neutral-600 mr-1"></i>
+                    Kekhawatiran peternak dan petani lokal terhadap kelangsungan rantai pasok dapur pangan.
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-violet-400"></span>
+                      <span class="text-neutral-200 font-bold">Sinis / Apatis</span>
+                    </div>
+                    <span class="text-violet-300 font-bold">14%</span>
+                  </div>
+                  <div class="h-2 w-full bg-neutral-800 rounded-sm overflow-hidden mb-1">
+                    <div class="bg-violet-400 h-full" style="width: 14%"></div>
+                  </div>
+                  <div class="text-[11px] text-neutral-400 font-sans">
+                    <i class="fa-regular fa-quote-left text-[9px] text-neutral-600 mr-1"></i>
+                    Komentar sarkastik terhadap komitmen kebijakan dan konsistensi anggaran negara.
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                      <span class="text-neutral-200 font-bold">Simpati / Peduli</span>
+                    </div>
+                    <span class="text-cyan-300 font-bold">8%</span>
+                  </div>
+                  <div class="h-2 w-full bg-neutral-800 rounded-sm overflow-hidden mb-1">
+                    <div class="bg-cyan-400 h-full" style="width: 8%"></div>
+                  </div>
+                  <div class="text-[11px] text-neutral-400 font-sans">
+                    <i class="fa-regular fa-quote-left text-[9px] text-neutral-600 mr-1"></i>
+                    Dukungan terhadap penerima manfaat program prioritas dan anak sekolah.
+                  </div>
+                </div>
+
+                <div class="p-2.5 bg-neutral-950 border border-neutral-850 rounded-sm">
+                  <div class="flex items-center justify-between text-xs font-mono mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <span class="text-neutral-200 font-bold">Optimis / Percaya</span>
+                    </div>
+                    <span class="text-emerald-400 font-bold">4%</span>
+                  </div>
+                  <div class="h-2 w-full bg-neutral-800 rounded-sm overflow-hidden mb-1">
+                    <div class="bg-emerald-400 h-full" style="width: 4%"></div>
+                  </div>
+                  <div class="text-[11px] text-neutral-400 font-sans">
+                    <i class="fa-regular fa-quote-left text-[9px] text-neutral-600 mr-1"></i>
+                    Respons terhadap siaran pers resmi klarifikasi kementerian keuangan dan BGN.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel 3: Sebaran Sentimen Lintas Platform -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4">
+              <div class="flex items-center justify-between pb-3 border-b border-neutral-800 mb-3">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-cubes-stacked text-violet-400 text-sm"></i>
+                  <h3 class="font-mono font-bold text-xs uppercase tracking-wider text-neutral-200">
+                    Sebaran Sentimen Lintas Platform Terpantau
+                  </h3>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-400">Total Korpus: 620 Konten</span>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left font-mono text-xs">
+                  <thead>
+                    <tr class="border-b border-neutral-800 text-[10px] text-neutral-500 uppercase tracking-wider">
+                      <th class="pb-2">Platform Media</th>
+                      <th class="pb-2">Distribusi Polaritas</th>
+                      <th class="pb-2 text-right">Volume</th>
+                      <th class="pb-2 text-right">Status Velocity</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-neutral-800/60">
+                    <tr class="hover:bg-neutral-800/30">
+                      <td class="py-2.5 font-bold text-neutral-200">
+                        <i class="fa-brands fa-instagram text-pink-400 mr-1.5"></i> Instagram
+                      </td>
+                      <td class="py-2.5 pr-4">
+                        <div class="flex items-center gap-2">
+                          <div class="h-2 w-32 bg-neutral-800 rounded-sm overflow-hidden flex">
+                            <div class="bg-rose-500 h-full" style="width: 82%"></div>
+                            <div class="bg-neutral-600 h-full" style="width: 13%"></div>
+                            <div class="bg-emerald-500 h-full" style="width: 5%"></div>
+                          </div>
+                          <span class="text-[10px] text-neutral-400">82% Neg</span>
+                        </div>
+                      </td>
+                      <td class="py-2.5 text-right text-neutral-300 font-bold">310</td>
+                      <td class="py-2.5 text-right">
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-sm bg-rose-950/60 border border-rose-500/40 text-rose-400 font-bold">
+                          VELOCITY TINGGI
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-neutral-800/30">
+                      <td class="py-2.5 font-bold text-neutral-200">
+                        <i class="fa-brands fa-tiktok text-cyan-400 mr-1.5"></i> TikTok
+                      </td>
+                      <td class="py-2.5 pr-4">
+                        <div class="flex items-center gap-2">
+                          <div class="h-2 w-32 bg-neutral-800 rounded-sm overflow-hidden flex">
+                            <div class="bg-rose-500 h-full" style="width: 76%"></div>
+                            <div class="bg-neutral-600 h-full" style="width: 18%"></div>
+                            <div class="bg-emerald-500 h-full" style="width: 6%"></div>
+                          </div>
+                          <span class="text-[10px] text-neutral-400">76% Neg</span>
+                        </div>
+                      </td>
+                      <td class="py-2.5 text-right text-neutral-300 font-bold">185</td>
+                      <td class="py-2.5 text-right">
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-sm bg-amber-950/60 border border-amber-500/40 text-amber-400 font-bold">
+                          VIRAL SURGE
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-neutral-800/30">
+                      <td class="py-2.5 font-bold text-neutral-200">
+                        <i class="fa-brands fa-x-twitter text-neutral-300 mr-1.5"></i> X (Twitter)
+                      </td>
+                      <td class="py-2.5 pr-4">
+                        <div class="flex items-center gap-2">
+                          <div class="h-2 w-32 bg-neutral-800 rounded-sm overflow-hidden flex">
+                            <div class="bg-rose-500 h-full" style="width: 88%"></div>
+                            <div class="bg-neutral-600 h-full" style="width: 10%"></div>
+                            <div class="bg-emerald-500 h-full" style="width: 2%"></div>
+                          </div>
+                          <span class="text-[10px] text-neutral-400">88% Neg</span>
+                        </div>
+                      </td>
+                      <td class="py-2.5 text-right text-neutral-300 font-bold">95</td>
+                      <td class="py-2.5 text-right">
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-sm bg-rose-950/60 border border-rose-500/40 text-rose-400 font-bold">
+                          BOT ANOMALY
+                        </span>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-neutral-800/30">
+                      <td class="py-2.5 font-bold text-neutral-200">
+                        <i class="fa-brands fa-youtube text-rose-500 mr-1.5"></i> YouTube
+                      </td>
+                      <td class="py-2.5 pr-4">
+                        <div class="flex items-center gap-2">
+                          <div class="h-2 w-32 bg-neutral-800 rounded-sm overflow-hidden flex">
+                            <div class="bg-rose-500 h-full" style="width: 58%"></div>
+                            <div class="bg-neutral-600 h-full" style="width: 34%"></div>
+                            <div class="bg-emerald-500 h-full" style="width: 8%"></div>
+                          </div>
+                          <span class="text-[10px] text-neutral-400">58% Neg</span>
+                        </div>
+                      </td>
+                      <td class="py-2.5 text-right text-neutral-300 font-bold">30</td>
+                      <td class="py-2.5 text-right">
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded-sm bg-neutral-800 text-neutral-400">
+                          MODERAT
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Tactical Alert Box & Guardrail Panels (1 Col) -->
+          <div class="space-y-6">
+
+            <!-- Side Box 1: Velocity Crisis Alert (PRD v2.0 §8.3 FR-018) -->
+            <div class="bg-neutral-900 border-2 border-violet-500/60 rounded-sm p-4 relative overflow-hidden bg-violet-950/20 shadow-[0_0_15px_rgba(139,92,246,0.15)]">
+              <div class="flex items-center justify-between pb-2 border-b border-violet-500/40 mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+                  <span class="font-mono font-bold text-xs text-violet-300 uppercase tracking-wider">
+                    TRIGGER // VELOCITY CRISIS ALERT
+                  </span>
+                </div>
+                <span class="text-[9px] font-mono bg-rose-950 border border-rose-500/50 text-rose-400 px-1.5 py-0.2 rounded-sm font-bold">
+                  KRISIS AKTIF
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-neutral-400 mb-0.5">Indeks Kecepatan Sebaran:</div>
+                  <div class="text-xl font-bold font-mono text-neutral-100 flex items-baseline gap-2">
+                    <span>+98 interaksi/jam</span>
+                    <span class="text-[10px] font-mono text-rose-400">(Ambang: +30/jam)</span>
+                  </div>
+                </div>
+
+                <div class="p-3 bg-neutral-950 border border-violet-500/30 rounded-sm text-xs font-sans text-neutral-300 leading-relaxed">
+                  <div class="font-mono text-[10px] text-violet-400 font-bold uppercase mb-1">Analisis Pemicu Otomatis:</div>
+                  Lonjakan velocity di atas ambang batas berpadu dengan sentimen negatif 75%. Rekomendasi: Segera terbitkan siaran pers klarifikasi akurasi anggaran.
+                </div>
+
+                <!-- Action Items for Public Communication Defense -->
+                <div class="border-t border-violet-500/20 pt-3 space-y-2">
+                  <div class="text-[10px] font-mono uppercase tracking-wider text-neutral-400">Rekomendasi Tindakan Strategis:</div>
+                  <div class="flex items-start gap-2 text-[11px] text-neutral-300">
+                    <span class="font-mono text-violet-400 font-bold">01.</span>
+                    <span>Rilis klarifikasi resmi faktual via saluran kementerian &amp; Satgas Penerangan.</span>
+                  </div>
+                  <div class="flex items-start gap-2 text-[11px] text-neutral-300">
+                    <span class="font-mono text-violet-400 font-bold">02.</span>
+                    <span>Publikasikan infografis alokasi riil di feed Instagram &amp; TikTok untuk redam bot.</span>
+                  </div>
+                  <div class="flex items-start gap-2 text-[11px] text-neutral-300">
+                    <span class="font-mono text-violet-400 font-bold">03.</span>
+                    <span>Eskalasi laporan intel brief PDF ke Komandan Satgas Siber Sosial.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Side Box 2: Diksi Leksikal & Tagar Utama Korpus -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4">
+              <div class="flex items-center justify-between pb-2 border-b border-neutral-800 mb-3">
+                <span class="font-mono font-bold text-xs text-neutral-300 uppercase tracking-wider">
+                  Diksi Leksikal &amp; Tagar Korpus
+                </span>
+                <span class="text-[9px] font-mono text-neutral-500">LEXICAL TOKENS</span>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-rose-400 mb-1.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-triangle-exclamation text-[10px]"></i>
+                    Tagar Pemicu Sentimen Negatif
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+                    <span class="px-2 py-1 bg-rose-950/40 border border-rose-500/30 text-rose-300 rounded-sm">#TolakPangkasGizi (412)</span>
+                    <span class="px-2 py-1 bg-rose-950/40 border border-rose-500/30 text-rose-300 rounded-sm">#DapurBatal (280)</span>
+                    <span class="px-2 py-1 bg-rose-950/40 border border-rose-500/30 text-rose-300 rounded-sm">#APBNFiktif (145)</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-violet-400 mb-1.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-quote-right text-[10px]"></i>
+                    Kata Kunci Diksi Kritis
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+                    <span class="px-2 py-0.5 bg-neutral-950 border border-neutral-800 text-neutral-300 rounded-sm">pangkas anggaran</span>
+                    <span class="px-2 py-0.5 bg-neutral-950 border border-neutral-800 text-neutral-300 rounded-sm">batal bertahap</span>
+                    <span class="px-2 py-0.5 bg-neutral-950 border border-neutral-800 text-neutral-300 rounded-sm">bodong</span>
+                    <span class="px-2 py-0.5 bg-neutral-950 border border-neutral-800 text-neutral-300 rounded-sm">janji palsu</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="text-[10px] font-mono uppercase text-cyan-400 mb-1.5 flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-check text-[10px]"></i>
+                    Narasi Faktual Klarifikasi
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+                    <span class="px-2 py-0.5 bg-cyan-950/30 border border-cyan-500/30 text-cyan-300 rounded-sm">klarifikasi kemenkeu</span>
+                    <span class="px-2 py-0.5 bg-cyan-950/30 border border-cyan-500/30 text-cyan-300 rounded-sm">alokasi tetap 71T</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Side Box 3: Anti-Doxxing & Ethical Compliance (§4A-A) -->
+            <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4 font-mono text-xs">
+              <div class="flex items-center gap-2 text-emerald-400 font-bold mb-2">
+                <i class="fa-solid fa-shield-check"></i>
+                <span class="text-[11px] uppercase tracking-wider">GUARDRAIL ETIK: AGREGAT ONLY</span>
+              </div>
+              <p class="text-[11px] text-neutral-400 font-sans leading-relaxed mb-3">
+                Sesuai PRD v2.0 §4A-A, sistem tidak melakukan identifikasi personal (Nama, KTP, Alamat Rumah, No HP). Granularitas analisis dibatasi pada tingkat sub-populasi dan pola perilaku bot terkoordinasi.
+              </p>
+              <div class="p-2 bg-neutral-950 border border-neutral-800 rounded-sm text-[10px] text-neutral-400 space-y-1">
+                <div class="flex justify-between">
+                  <span>Level Geospatial Maksimal:</span>
+                  <span class="text-neutral-200">Kecamatan / Subnet /24</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Penyimpanan Data Pribadi:</span>
+                  <span class="text-emerald-400">TIDAK ADA (0 PII)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Tindakan Sistem:</span>
+                  <span class="text-neutral-200">Verifikasi Fakta &amp; Counter Narasi</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
       </section>
 
       <!-- ========================================================================= -->
@@ -2273,6 +2867,39 @@ const REGIONAL_DATA = {
     }).join('');
   }
 
+  function getDistrictsExposure(cityName) {
+    const map = {
+      'Jakarta Pusat': [
+        { name: 'Kec. Gambir', subnet: '103.247.12.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 26 },
+        { name: 'Kec. Tanah Abang', subnet: '182.253.91.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 22 }
+      ],
+      'Kota Bekasi': [
+        { name: 'Kec. Bekasi Selatan', subnet: '114.124.32.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 11 },
+        { name: 'Kec. Rawa Lumbu', subnet: '180.252.14.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 8 }
+      ],
+      'Kab. Subang': [
+        { name: 'Kec. Pagaden', subnet: '36.88.42.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 16 },
+        { name: 'Kec. Subang Kota', subnet: '110.137.99.0/24', asn: 'AS9341 (XL Axiata)', exif: 'STRIPPED', accounts: 11 }
+      ],
+      'Kota Bandung': [
+        { name: 'Kec. Coblong', subnet: '103.21.244.0/24', asn: 'AS131440 (Biznet)', exif: 'KONSISTEN', accounts: 14 },
+        { name: 'Kec. Cicendo', subnet: '180.252.88.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 9 }
+      ],
+      'Kota Surabaya': [
+        { name: 'Kec. Gubeng', subnet: '103.247.112.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 15 },
+        { name: 'Kec. Wonokromo', subnet: '114.125.10.0/24', asn: 'AS9341 (XL Axiata)', exif: 'STRIPPED', accounts: 9 }
+      ],
+      'Kota Medan': [
+        { name: 'Kec. Medan Kota', subnet: '103.247.15.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 13 },
+        { name: 'Kec. Medan Petisah', subnet: '182.253.40.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 8 }
+      ]
+    };
+    return map[cityName] || [
+      { name: 'Kec. Wilayah 1', subnet: '103.247.0.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 7 },
+      { name: 'Kec. Wilayah 2', subnet: '182.253.0.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 4 }
+    ];
+  }
+
   function renderKodam(id, idx) {
     const k = REGIONAL_DATA[id].kodam[idx];
     crumb.innerHTML = `NKRI › ${esc(REGIONAL_DATA[id].name)} › <span class="text-cyan-400">${esc(k.name)}</span>`;
@@ -2292,6 +2919,33 @@ const REGIONAL_DATA = {
           <div>Amplifikasi Luar<br><b class="${c.out >= 40 ? 'text-amber-400 font-bold' : 'text-neutral-200'} text-xs">${c.out}%</b></div>
         </div>
         ${c.out >= 40 ? '<div class="text-[10px] font-mono text-amber-400 pt-1 border-t border-neutral-900"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Indikasi amplifikasi dari luar wilayah — perlu tinjauan analis</div>' : ''}
+
+        <!-- START: §6B GEOSPATIAL & NETWORK EXPOSURE GRID -->
+        <div class="mt-2 p-2 bg-neutral-900 border border-neutral-800 rounded-sm font-mono text-[10px]">
+          <div class="flex items-center justify-between text-[9px] uppercase tracking-wider text-neutral-400 mb-1.5 pb-1 border-b border-neutral-800">
+            <span class="text-cyan-400 font-bold flex items-center gap-1.5">
+              <i class="fa-solid fa-network-wired text-[9px]"></i>
+              EXPOSURE GRID MONOSPACE (§6B)
+            </span>
+            <span class="text-neutral-500">SUBNET /24 &bull; ANTI-DOXXING</span>
+          </div>
+          <div class="space-y-1">
+            ${getDistrictsExposure(c.name).map(d => `
+              <div class="p-1.5 bg-neutral-950 border border-neutral-850 rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[10px]">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-neutral-200 font-bold">[${esc(d.name)}]</span>
+                  <span class="text-cyan-300 font-mono bg-cyan-950/50 px-1 border border-cyan-500/20 rounded-xs">${esc(d.subnet)}</span>
+                </div>
+                <div class="flex items-center gap-2 text-[9px]">
+                  <span class="text-neutral-400">${esc(d.asn)}</span>
+                  <span class="${d.exif === 'KONSISTEN' ? 'text-emerald-400' : 'text-amber-400'} font-bold">${esc(d.exif)}</span>
+                  <span class="text-neutral-300 bg-neutral-800 px-1 rounded-xs font-bold">${d.accounts} Akun</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <!-- END: §6B GEOSPATIAL & NETWORK EXPOSURE GRID -->
       </div>
     `).join('') + `
       <div class="pt-2">

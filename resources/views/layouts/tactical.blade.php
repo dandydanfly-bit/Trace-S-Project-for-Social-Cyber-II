@@ -204,6 +204,13 @@
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
           </a>
 
+          <!-- Modul A2: Sentiment Analysis Dashboard (Palet Violet PRD v2.0 §10.2B) -->
+          <a href="{{ route('sentiment.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('sentiment*') ? 'border-violet-500 text-violet-300 bg-violet-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
+            <i class="fa-solid fa-heart-pulse w-4 text-center text-violet-400"></i>
+            <span class="flex-1 text-left">Sentiment Analysis</span>
+            <span class="text-[9px] px-1 bg-violet-950/60 border border-violet-500/30 text-violet-400 rounded-sm">A2</span>
+          </a>
+
           <!-- Modul G: Case Management -->
           <a href="{{ route('cases.index') }}" class="w-full flex items-center gap-3 px-3 py-2 border-l-2 text-[11px] uppercase tracking-wider font-mono transition-colors {{ request()->routeIs('cases*') ? 'border-cyan-500 text-cyan-300 bg-cyan-950/30' : 'border-transparent text-neutral-400 hover:bg-neutral-800/60 hover:text-neutral-200' }}">
             <i class="fa-solid fa-folder-closed w-4 text-center"></i>

@@ -313,4 +313,41 @@ class TracePlatformTest extends TestCase
         $pdfResponse->assertStatus(200);
         $pdfResponse->assertHeader('content-type', 'application/pdf');
     }
+
+    /**
+     * Test Modul A2: Sentiment Analysis Dashboard (PRD v2.0 §8.3 & §10.2B Violet Palette).
+     */
+    public function test_modul_a2_sentiment_analysis_dashboard_renders_with_violet_palette_and_disclaimer(): void
+    {
+        $operator = User::where('role', 'operator')->first();
+        $this->assertNotNull($operator);
+
+        $response = $this->actingAs($operator)->get('/sentiment');
+        $response->assertStatus(200);
+        $response->assertSee('MODUL A2 // PERCEPTION');
+        $response->assertSee('CAKUPAN TERBATAS');
+        $response->assertSee('text-violet-400');
+        $response->assertSee('border-violet-500');
+        $response->assertSee('VELOCITY CRISIS ALERT');
+        $response->assertSee('MARAH / MURKA');
+        $response->assertSee('X (Twitter)');
+        $response->assertSee('GUARDRAIL ETIK: AGREGAT ONLY');
+    }
+
+    /**
+     * Test Standalone Prototype contains Modul A2 and Monospaced Exposure Grid (§6B).
+     */
+    public function test_prototype_contains_modul_a2_and_monospaced_exposure_grid(): void
+    {
+        $operator = User::where('role', 'operator')->first();
+        $this->assertNotNull($operator);
+
+        $response = $this->actingAs($operator)->get('/prototype');
+        $response->assertStatus(200);
+        $response->assertSee('data-view="sentiment"', false);
+        $response->assertSee('id="view-sentiment"', false);
+        $response->assertSee('EXPOSURE GRID MONOSPACE (§6B)', false);
+        $response->assertSee('SUBNET /24', false);
+        $response->assertSee('CAKUPAN TERBATAS', false);
+    }
 }

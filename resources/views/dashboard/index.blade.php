@@ -253,6 +253,39 @@
       }).join('');
     }
 
+    function getDistrictsExposure(cityName) {
+      const map = {
+        'Jakarta Pusat': [
+          { name: 'Kec. Gambir', subnet: '103.247.12.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 26 },
+          { name: 'Kec. Tanah Abang', subnet: '182.253.91.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 22 }
+        ],
+        'Kota Bekasi': [
+          { name: 'Kec. Bekasi Selatan', subnet: '114.124.32.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 11 },
+          { name: 'Kec. Rawa Lumbu', subnet: '180.252.14.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 8 }
+        ],
+        'Kab. Subang': [
+          { name: 'Kec. Pagaden', subnet: '36.88.42.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 16 },
+          { name: 'Kec. Subang Kota', subnet: '110.137.99.0/24', asn: 'AS9341 (XL Axiata)', exif: 'STRIPPED', accounts: 11 }
+        ],
+        'Kota Bandung': [
+          { name: 'Kec. Coblong', subnet: '103.21.244.0/24', asn: 'AS131440 (Biznet)', exif: 'KONSISTEN', accounts: 14 },
+          { name: 'Kec. Cicendo', subnet: '180.252.88.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 9 }
+        ],
+        'Kota Surabaya': [
+          { name: 'Kec. Gubeng', subnet: '103.247.112.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 15 },
+          { name: 'Kec. Wonokromo', subnet: '114.125.10.0/24', asn: 'AS9341 (XL Axiata)', exif: 'STRIPPED', accounts: 9 }
+        ],
+        'Kota Medan': [
+          { name: 'Kec. Medan Kota', subnet: '103.247.15.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 13 },
+          { name: 'Kec. Medan Petisah', subnet: '182.253.40.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 8 }
+        ]
+      };
+      return map[cityName] || [
+        { name: 'Kec. Wilayah 1', subnet: '103.247.0.0/24', asn: 'AS23693 (PT Telkom)', exif: 'KONSISTEN', accounts: 7 },
+        { name: 'Kec. Wilayah 2', subnet: '182.253.0.0/24', asn: 'AS17974 (Indosat)', exif: 'STRIPPED', accounts: 4 }
+      ];
+    }
+
     function renderKodam(id, idx) {
       const k = DATA[id].kodam[idx];
       crumb.innerHTML = `NKRI › ${esc(DATA[id].name)} › <span class="text-cyan-400">${esc(k.name)}</span>`;
@@ -268,6 +301,33 @@
             <div>Amplifikasi luar<br><b class="${c.out >= 40 ? 'text-amber-400' : 'text-neutral-200'} text-xs">${c.out}%</b></div>
           </div>
           ${c.out >= 40 ? '<div class="text-[10px] font-mono text-amber-400"><i class="fa-solid fa-triangle-exclamation"></i> Indikasi amplifikasi dari luar wilayah — perlu tinjauan analis</div>' : ''}
+
+          <!-- START: §6B GEOSPATIAL & NETWORK EXPOSURE GRID -->
+          <div class="mt-2 p-2 bg-neutral-900 border border-neutral-800 rounded-sm font-mono text-[10px]">
+            <div class="flex items-center justify-between text-[9px] uppercase tracking-wider text-neutral-400 mb-1.5 pb-1 border-b border-neutral-800">
+              <span class="text-cyan-400 font-bold flex items-center gap-1.5">
+                <i class="fa-solid fa-network-wired text-[9px]"></i>
+                EXPOSURE GRID MONOSPACE (§6B)
+              </span>
+              <span class="text-neutral-500">SUBNET /24 &bull; ANTI-DOXXING</span>
+            </div>
+            <div class="space-y-1">
+              ${getDistrictsExposure(c.name).map(d => `
+                <div class="p-1.5 bg-neutral-950 border border-neutral-850 rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[10px]">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-neutral-200 font-bold">[${esc(d.name)}]</span>
+                    <span class="text-cyan-300 font-mono bg-cyan-950/50 px-1 border border-cyan-500/20 rounded-xs">${esc(d.subnet)}</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-[9px]">
+                    <span class="text-neutral-400">${esc(d.asn)}</span>
+                    <span class="${d.exif === 'KONSISTEN' ? 'text-emerald-400' : 'text-amber-400'} font-bold">${esc(d.exif)}</span>
+                    <span class="text-neutral-300 bg-neutral-800 px-1 rounded-xs font-bold">${d.accounts} Akun</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <!-- END: §6B GEOSPATIAL & NETWORK EXPOSURE GRID -->
         </div>`).join('') +
         `<a href="{{ route('cases.index') }}" class="block text-center text-[11px] font-mono text-cyan-400 hover:text-cyan-300 py-1.5 border border-cyan-500/30 bg-cyan-950/20 rounded-sm">Buka kasus terkait &rarr;</a>`;
     }

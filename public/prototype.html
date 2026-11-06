@@ -55,6 +55,15 @@
     @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .3; transform: scale(1.6); } }
     .threat-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
     
+    #island-map .island path { fill: #262626; stroke: #404040; stroke-width: 1.5; cursor: pointer; transition: fill .2s, stroke .2s; }
+    #island-map .island text { fill: #a3a3a3; font: 600 14px 'JetBrains Mono', monospace; pointer-events: none; letter-spacing: .05em; }
+    #island-map .island:hover path, #island-map .island:focus path, #island-map .island.selected path { stroke: #22d3ee; stroke-width: 3; }
+    #island-map .island:focus { outline: none; }
+    #island-map .sev-KRITIS path { fill: rgba(225,29,72,.55); }
+    #island-map .sev-TINGGI path { fill: rgba(245,158,11,.45); }
+    #island-map .sev-SEDANG path { fill: rgba(6,182,212,.35); }
+    #island-map .sev-RENDAH path { fill: #262626; }
+    
     @media print {
       body { background: white !important; color: black !important; }
       header, nav, aside, .no-print { display: none !important; }
@@ -327,86 +336,89 @@
           </div>
         </div>
 
-        <!-- Main Map & Live Threat Feed Grid -->
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
-          <!-- Tactical Map (8 Cols) -->
-          <div class="xl:col-span-8 bg-neutral-900 border border-neutral-800 rounded-sm p-4 flex flex-col">
-            <div class="flex items-center justify-between mb-3 border-b border-neutral-800 pb-2">
+        <!-- START: PETA DAMPAK WILAYAH (Cognitive Impact Zone) + HIERARCHICAL DRILLDOWN -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+          <!-- Kiri: Peta 5 pulau (klik untuk drilldown) -->
+          <div class="lg:col-span-7 bg-neutral-900 border border-neutral-800 rounded-sm p-4 flex flex-col space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800 pb-2">
               <div class="flex items-center gap-2">
                 <i class="fa-solid fa-map-location-dot text-cyan-400 text-xs"></i>
-                <span class="text-xs font-mono font-semibold tracking-wide text-neutral-200 uppercase">SEBARAN TITIK ANCAMAN KOGNITIF (NUSANTARA)</span>
+                <span class="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">Peta Dampak Wilayah Teritorial</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 border border-amber-500/40 text-amber-500 bg-amber-950/20">SIMULASI</span>
               </div>
-              <span class="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">BERDASARKAN DATASET AKTIF</span>
+              <div class="flex items-center gap-3 text-[10px] font-mono">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-600"></span> Kritis</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Tinggi</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> Sedang</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-neutral-600"></span> Rendah</span>
+              </div>
             </div>
 
-            <div class="relative w-full h-64 sm:h-72 bg-neutral-950 border border-neutral-850 rounded-sm overflow-hidden flex items-center justify-center">
-              <svg viewBox="0 0 620 230" class="w-full h-full" role="img" aria-label="Peta taktis kepulauan Indonesia dengan titik ancaman">
-                <rect x="0" y="0" width="620" height="230" fill="#0a0a0a"/>
-                <!-- Tactical radar grid -->
-                <g stroke="#1f1f1f" stroke-width="1">
-                  <line x1="0" y1="58" x2="620" y2="58"/><line x1="0" y1="115" x2="620" y2="115"/><line x1="0" y1="172" x2="620" y2="172"/>
-                  <line x1="100" y1="0" x2="100" y2="230"/><line x1="200" y1="0" x2="200" y2="230"/><line x1="300" y1="0" x2="300" y2="230"/>
-                  <line x1="400" y1="0" x2="400" y2="230"/><line x1="500" y1="0" x2="500" y2="230"/>
-                </g>
-                <!-- Stylized Island Silhouettes (Tactical geometric representation) -->
-                <!-- Sumatera -->
-                <ellipse cx="95" cy="115" rx="58" ry="18" transform="rotate(-30 95 115)" fill="#171717" stroke="#333333"/>
-                <!-- Jawa -->
-                <ellipse cx="230" cy="165" rx="65" ry="12" fill="#171717" stroke="#333333"/>
-                <!-- Kalimantan -->
-                <ellipse cx="240" cy="95" rx="48" ry="32" fill="#171717" stroke="#333333"/>
-                <!-- Sulawesi -->
-                <ellipse cx="360" cy="115" rx="28" ry="38" fill="#171717" stroke="#333333"/>
-                <!-- Maluku & Papua -->
-                <ellipse cx="440" cy="120" rx="20" ry="25" fill="#171717" stroke="#333333"/>
-                <ellipse cx="530" cy="130" rx="55" ry="28" fill="#171717" stroke="#333333"/>
-
-                <!-- Threat radar pulses -->
-                <!-- Jawa (DKI Jakarta / Surabaya) -->
-                <circle cx="215" cy="162" r="5" fill="#f43f5e" class="threat-dot"/>
-                <circle cx="215" cy="162" r="14" fill="none" stroke="#f43f5e" stroke-width="1" class="threat-dot" style="animation-delay:.2s"/>
-                <text x="225" y="155" fill="#fb7185" font-size="9" font-family="JetBrains Mono" font-weight="bold">TS-2026-001 [KRITIS]</text>
-
-                <!-- Sumatera (Medan) -->
-                <circle cx="85" cy="95" r="4" fill="#fbbf24" class="threat-dot" style="animation-delay:.5s"/>
-                <text x="95" y="90" fill="#fbbf24" font-size="8" font-family="JetBrains Mono">TS-2026-003</text>
-
-                <!-- Sulawesi (Makassar) -->
-                <circle cx="360" cy="140" r="4" fill="#fbbf24" class="threat-dot" style="animation-delay:.9s"/>
-                <text x="370" y="142" fill="#fbbf24" font-size="8" font-family="JetBrains Mono">ANOMALI #4</text>
+            <div class="relative w-full h-72 sm:h-80 bg-neutral-950 border border-neutral-850 rounded-sm overflow-hidden p-2">
+              <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-25"></div>
+              <svg id="island-map" class="relative w-full h-full" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Peta lima pulau utama Indonesia berdasarkan tingkat dampak narasi">
+                <g class="island" data-island="sumatera" tabindex="0" role="button" aria-label="Sumatera"><path d="M120,60 L240,240 L180,290 L90,140 Z"/><text x="130" y="200">SUMATERA</text></g>
+                <g class="island" data-island="jawa" tabindex="0" role="button" aria-label="Jawa"><path d="M220,310 L480,315 L470,335 L210,330 Z"/><text x="300" y="365">JAWA</text></g>
+                <g class="island" data-island="kalimantan" tabindex="0" role="button" aria-label="Kalimantan"><path d="M370,110 L520,120 L510,250 L380,240 Z"/><text x="395" y="190">KALIMANTAN</text></g>
+                <g class="island" data-island="sulawesi" tabindex="0" role="button" aria-label="Sulawesi"><path d="M560,140 L640,160 L620,280 L580,260 L570,180 Z"/><text x="545" y="305">SULAWESI</text></g>
+                <g class="island" data-island="papua" tabindex="0" role="button" aria-label="Papua dan Maluku"><path d="M720,160 L780,180 L760,250 Z"/><path d="M790,190 L960,200 L950,300 L810,280 Z"/><text x="790" y="330">PAPUA &amp; MALUKU</text></g>
               </svg>
+              <div class="absolute top-2 left-2 text-[9px] font-mono text-neutral-600">KLIK PULAU UNTUK RINCIAN KODAM &amp; KAB/KOTA</div>
+              <div class="absolute bottom-2 right-2 text-[9px] font-mono text-neutral-600">WARNA = TINGKAT DAMPAK NARASI</div>
             </div>
 
-            <div class="mt-3 flex flex-wrap items-center justify-between text-[10px] font-mono text-neutral-500 pt-2 border-t border-neutral-850">
-              <div class="flex items-center gap-4">
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Disinformasi Kritis</span>
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Anomali Perlu Investigasi</span>
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> Narasi Terpantau</span>
-              </div>
-              <span class="text-neutral-400">STATUS AIR-GAPPED: <b class="text-emerald-400">SECURE LOCAL</b></span>
+            <!-- Kebijakan data: bukan pelacakan pelaku -->
+            <div class="px-3 py-2 bg-neutral-950/80 border border-cyan-500/20 rounded-sm flex items-start gap-2 text-[11px] font-mono text-neutral-400">
+              <i class="fa-solid fa-shield-halved text-cyan-400 mt-0.5"></i>
+              <span>Peta menunjukkan <b class="text-neutral-200">wilayah yang terdampak narasi</b> (resonansi publik &amp; kesiapsiagaan KODAM), <b class="text-neutral-200">bukan</b> lokasi, IP, atau identitas pengunggah. TRACE-S tidak melakukan pelacakan pribadi atau <i>doxxing</i>.</span>
             </div>
           </div>
 
-          <!-- Live Threat Feed Terminal (4 Cols) -->
-          <div class="xl:col-span-4 bg-neutral-900 border border-neutral-800 rounded-sm p-4 flex flex-col min-h-0">
-            <div class="flex items-center justify-between mb-2 border-b border-neutral-800 pb-2">
+          <!-- Kanan: Panel drilldown Pulau -> KODAM -> Kab/Kota -->
+          <div class="lg:col-span-5 bg-neutral-900 border border-neutral-800 rounded-sm p-4 flex flex-col space-y-3">
+            <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-terminal text-cyan-400 text-xs"></i>
-                <span class="text-xs font-mono font-semibold tracking-wide text-neutral-200 uppercase">LIVE THREAT FEED</span>
+                <i class="fa-solid fa-layer-group text-cyan-400 text-xs"></i>
+                <span class="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">Rincian Wilayah</span>
               </div>
-              <span class="text-[9px] font-mono text-cyan-400 animate-pulse">POLLING 2s</span>
+              <button id="region-back" type="button" class="hidden text-[10px] font-mono text-cyan-400 hover:text-cyan-300 px-1.5 py-0.5 border border-cyan-500/30 bg-cyan-950/30 rounded-sm">
+                <i class="fa-solid fa-arrow-left text-[9px]"></i> Kembali
+              </button>
             </div>
 
-            <div id="threatFeedBox" class="flex-1 overflow-y-auto font-mono text-[11px] space-y-2 bg-neutral-950 border border-neutral-850 p-3 rounded-sm min-h-[220px] max-h-80">
-              <!-- Rendered via JS -->
-            </div>
+            <nav id="region-breadcrumb" class="text-[10px] font-mono text-neutral-500 uppercase tracking-wider" aria-label="Posisi drilldown"></nav>
+            <div id="region-panel" class="flex-1 space-y-2 overflow-y-auto max-h-[22rem] pr-1"></div>
 
-            <div class="mt-2 pt-2 border-t border-neutral-850 flex items-center justify-between text-[10px] font-mono text-neutral-500">
-              <span>Filter: <b class="text-neutral-300">SEMUA LEVEL</b></span>
+            <div class="text-[10px] font-mono text-neutral-500 pt-1 border-t border-neutral-800 leading-relaxed">
+              <b class="text-neutral-400">Amplifikasi luar wilayah</b> = porsi akun penyebar yang berasal dari luar wilayah. Merupakan <i>indikasi</i> untuk analis (kemungkinan amplifikasi terorganisir), bukan vonis.
+            </div>
+          </div>
+
+        </div>
+        <!-- END: PETA DAMPAK WILAYAH -->
+
+        <!-- START: LIVE THREAT FEED (lebar penuh) -->
+        <div class="bg-neutral-900 border border-neutral-800 rounded-sm p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-neutral-800 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+              <span class="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">Live Threat Feed</span>
+              <span class="text-[9px] text-amber-500 font-mono">SIMULASI LIVE STREAM</span>
+            </div>
+            <div class="flex items-center gap-3 text-[10px] font-mono text-neutral-500">
+              <span>Auto-refresh: <b class="text-cyan-400">AKTIF</b> (2s)</span>
               <button onclick="clearAndReloadFeed()" class="text-cyan-400 hover:underline">Segarkan Log</button>
             </div>
           </div>
+          <div id="feed-terminal-container" class="h-44 bg-neutral-950 border border-neutral-850 rounded-sm p-3 font-mono text-[11px] overflow-y-auto">
+            <div class="text-neutral-500 text-[10px] pb-1 border-b border-neutral-800/80 mb-2">// POLLING CONNECTED FEEDS — Cakupan: 11 berkas bukti dari 3 sumber terhubung (Batas Lingkup Dataset)</div>
+            <div id="threatFeedBox" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
         </div>
+        <!-- END: LIVE THREAT FEED -->
       </section>
 
       <!-- ========================================================================= -->
@@ -2045,6 +2057,282 @@ function escapeHtml(string) {
   return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 // END: AI CONSOLE CHAT HANDLER
+
+// START: REGIONAL COGNITIVE IMPACT DATA & DRILLDOWN ENGINE (SIMULASI)
+const REGIONAL_DATA = {
+  sumatera: {
+    name: 'Sumatera',
+    kodam: [
+      {
+        name: 'Kodam I/Bukit Barisan',
+        area: 'Sumut, Riau, Sumbar',
+        cities: [
+          { name: 'Kota Medan', sev: 'TINGGI', n: 21, neg: 71, out: 32, topic: 'Isu penghentian MBG & logistik pangan' },
+          { name: 'Kota Pekanbaru', sev: 'SEDANG', n: 9, neg: 55, out: 18, topic: 'Isu pemotongan alokasi pendidikan' }
+        ]
+      },
+      {
+        name: 'Kodam II/Sriwijaya',
+        area: 'Sumsel, Lampung, Jambi, Bengkulu, Babel',
+        cities: [
+          { name: 'Kota Palembang', sev: 'SEDANG', n: 11, neg: 58, out: 25, topic: 'Isu penghentian MBG' },
+          { name: 'Kota Bandar Lampung', sev: 'RENDAH', n: 4, neg: 39, out: 12, topic: 'Isu anggaran pendidikan' }
+        ]
+      },
+      {
+        name: 'Kodam Iskandar Muda',
+        area: 'Aceh',
+        cities: [
+          { name: 'Kota Banda Aceh', sev: 'RENDAH', n: 3, neg: 34, out: 9, topic: 'Isu efisiensi anggaran pusat' }
+        ]
+      }
+    ]
+  },
+  jawa: {
+    name: 'Jawa',
+    kodam: [
+      {
+        name: 'Kodam Jaya',
+        area: 'DKI Jakarta, Bekasi, Depok',
+        cities: [
+          { name: 'Jakarta Pusat', sev: 'KRITIS', n: 48, neg: 84, out: 41, topic: 'Disinformasi strategis MBG & KDMP nasional' },
+          { name: 'Kota Bekasi', sev: 'TINGGI', n: 19, neg: 69, out: 36, topic: 'Isu pembatalan sepihak program pemerintah' }
+        ]
+      },
+      {
+        name: 'Kodam III/Siliwangi',
+        area: 'Jawa Barat & Banten',
+        cities: [
+          { name: 'Kab. Subang', sev: 'KRITIS', n: 27, neg: 81, out: 22, topic: 'Kepanikan petani pemasok dapur MBG' },
+          { name: 'Kota Bandung', sev: 'TINGGI', n: 23, neg: 72, out: 30, topic: 'Isu penghentian MBG & penolakan APBN' }
+        ]
+      },
+      {
+        name: 'Kodam IV/Diponegoro',
+        area: 'Jawa Tengah & D.I. Yogyakarta',
+        cities: [
+          { name: 'Kab. Banyumas', sev: 'TINGGI', n: 16, neg: 70, out: 19, topic: 'Kepanikan rantai pasok dapur MBG' },
+          { name: 'Kota Semarang', sev: 'SEDANG', n: 12, neg: 57, out: 27, topic: 'Isu anggaran pendidikan vs MBG' }
+        ]
+      },
+      {
+        name: 'Kodam V/Brawijaya',
+        area: 'Jawa Timur',
+        cities: [
+          { name: 'Kota Surabaya', sev: 'TINGGI', n: 24, neg: 74, out: 29, topic: 'Isu pembatalan MBG & eskalasi sentimen' },
+          { name: 'Kab. Jember', sev: 'TINGGI', n: 14, neg: 68, out: 17, topic: 'Keresahan peternak telur/dapur MBG' },
+          { name: 'Kota Malang', sev: 'SEDANG', n: 10, neg: 56, out: 24, topic: 'Isu pengalihan pos anggaran fiskal' }
+        ]
+      }
+    ]
+  },
+  kalimantan: {
+    name: 'Kalimantan',
+    kodam: [
+      {
+        name: 'Kodam VI/Mulawarman',
+        area: 'Kaltim, Kalsel, Kaltara',
+        cities: [
+          { name: 'Kota Balikpapan', sev: 'SEDANG', n: 8, neg: 52, out: 44, topic: 'Isu logistik MBG & prioritas IKN' },
+          { name: 'Kota Samarinda', sev: 'RENDAH', n: 5, neg: 41, out: 31, topic: 'Isu anggaran pendidikan daerah' }
+        ]
+      },
+      {
+        name: 'Kodam XII/Tanjungpura',
+        area: 'Kalbar & Kalteng',
+        cities: [
+          { name: 'Kota Pontianak', sev: 'SEDANG', n: 7, neg: 49, out: 62, topic: 'Isu MBG & indikasi amplifikasi luar tinggi' }
+        ]
+      }
+    ]
+  },
+  sulawesi: {
+    name: 'Sulawesi',
+    kodam: [
+      {
+        name: 'Kodam XIV/Hasanuddin',
+        area: 'Sulsel, Sulbar, Sultra',
+        cities: [
+          { name: 'Kota Makassar', sev: 'SEDANG', n: 13, neg: 61, out: 26, topic: 'Isu penghentian MBG kawasan timur' },
+          { name: 'Kota Kendari', sev: 'RENDAH', n: 4, neg: 37, out: 15, topic: 'Isu pemotongan anggaran bantuan' }
+        ]
+      },
+      {
+        name: 'Kodam XIII/Merdeka',
+        area: 'Sulut, Sulteng, Gorontalo',
+        cities: [
+          { name: 'Kota Manado', sev: 'RENDAH', n: 3, neg: 33, out: 20, topic: 'Isu anggaran pendidikan' },
+          { name: 'Kota Palu', sev: 'RENDAH', n: 3, neg: 35, out: 14, topic: 'Isu penghentian MBG' }
+        ]
+      }
+    ]
+  },
+  papua: {
+    name: 'Papua & Maluku',
+    kodam: [
+      {
+        name: 'Kodam XVII/Cenderawasih',
+        area: 'Papua, Papua Tengah, Papua Pegunungan, Papua Selatan',
+        cities: [
+          { name: 'Kota Jayapura', sev: 'SEDANG', n: 6, neg: 54, out: 58, topic: 'Isu MBG dan narasi diskriminasi alokasi' },
+          { name: 'Kab. Merauke', sev: 'RENDAH', n: 2, neg: 31, out: 47, topic: 'Isu ketahanan pangan lokal' }
+        ]
+      },
+      {
+        name: 'Kodam XVI/Pattimura',
+        area: 'Maluku & Maluku Utara',
+        cities: [
+          { name: 'Kota Ambon', sev: 'RENDAH', n: 3, neg: 36, out: 28, topic: 'Isu alokasi subsidi pendidikan' }
+        ]
+      }
+    ]
+  }
+};
+
+(function initRegionalDrilldown() {
+  const RANK = { KRITIS: 4, TINGGI: 3, SEDANG: 2, RENDAH: 1 };
+  const BADGE = {
+    KRITIS: 'text-rose-400 border-rose-600/50 bg-rose-950/40',
+    TINGGI: 'text-amber-400 border-amber-500/50 bg-amber-950/40',
+    SEDANG: 'text-cyan-400 border-cyan-500/40 bg-cyan-950/30',
+    RENDAH: 'text-neutral-400 border-neutral-700 bg-neutral-800'
+  };
+  const panel = document.getElementById('region-panel');
+  const crumb = document.getElementById('region-breadcrumb');
+  const backBtn = document.getElementById('region-back');
+  if (!panel || !crumb || !backBtn) return;
+
+  const state = { island: null, kodam: null };
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const badge = sev => `<span class="px-1.5 py-0.5 border rounded-xs text-[9px] uppercase font-mono ${BADGE[sev] || BADGE.RENDAH}">${sev}</span>`;
+  const cities = k => k.cities;
+  const worst = list => list.reduce((m, x) => RANK[x.sev] > RANK[m] ? x.sev : m, 'RENDAH');
+  const kodamCities = id => REGIONAL_DATA[id].kodam.flatMap(cities);
+  const sum = (list, f) => list.reduce((a, x) => a + f(x), 0);
+  const wavg = list => { const n = sum(list, x => x.n); return n ? Math.round(sum(list, x => x.neg * x.n) / n) : 0; };
+
+  function paintMap() {
+    document.querySelectorAll('#island-map .island').forEach(g => {
+      const id = g.dataset.island;
+      if (!REGIONAL_DATA[id]) return;
+      g.classList.remove('sev-KRITIS', 'sev-TINGGI', 'sev-SEDANG', 'sev-RENDAH');
+      g.classList.add('sev-' + worst(kodamCities(id)));
+      g.classList.toggle('selected', state.island === id);
+    });
+  }
+
+  function bar(pct, color) {
+    return `<div class="w-full h-1 bg-neutral-800 rounded-sm overflow-hidden"><div class="h-full ${color}" style="width:${pct}%"></div></div>`;
+  }
+
+  function renderNational() {
+    crumb.textContent = 'NKRI › 5 PULAU UTAMA';
+    backBtn.classList.add('hidden');
+    const rows = Object.keys(REGIONAL_DATA)
+      .map(id => ({ id, list: kodamCities(id) }))
+      .sort((a, b) => RANK[worst(b.list)] - RANK[worst(a.list)] || sum(b.list, x => x.n) - sum(a.list, x => x.n));
+
+    panel.innerHTML = rows.map(r => {
+      const sev = worst(r.list);
+      return `
+        <button type="button" data-island="${r.id}" class="w-full text-left p-2.5 bg-neutral-950 border border-neutral-800 hover:border-cyan-500/50 rounded-sm space-y-1.5 transition-colors">
+          <div class="flex items-center justify-between font-mono text-xs">
+            <span class="text-neutral-200 font-semibold">${esc(REGIONAL_DATA[r.id].name)}</span>
+            ${badge(sev)}
+          </div>
+          <div class="flex items-center justify-between text-[10px] font-mono text-neutral-500">
+            <span>${sum(r.list, x => x.n)} narasi • ${REGIONAL_DATA[r.id].kodam.length} KODAM</span>
+            <span>Sentimen Negatif ${wavg(r.list)}%</span>
+          </div>
+          ${bar(wavg(r.list), 'bg-rose-500/70')}
+        </button>
+      `;
+    }).join('');
+  }
+
+  function renderIsland(id) {
+    crumb.innerHTML = `NKRI › <span class="text-cyan-400">${esc(REGIONAL_DATA[id].name)}</span> › KODAM TERITORIAL`;
+    backBtn.classList.remove('hidden');
+    panel.innerHTML = REGIONAL_DATA[id].kodam.map((k, idx) => {
+      const sev = worst(k.cities);
+      return `
+        <button type="button" data-kodam="${idx}" class="w-full text-left p-2.5 bg-neutral-950 border border-neutral-800 hover:border-cyan-500/50 rounded-sm space-y-1.5 transition-colors">
+          <div class="flex items-center justify-between font-mono text-xs">
+            <span class="text-neutral-200 font-semibold">${esc(k.name)}</span>
+            ${badge(sev)}
+          </div>
+          <div class="text-[10px] font-mono text-neutral-400">${esc(k.area)}</div>
+          <div class="flex items-center justify-between text-[10px] font-mono text-neutral-500">
+            <span>${sum(k.cities, x => x.n)} narasi • ${k.cities.length} kab/kota</span>
+            <span>Negatif ${wavg(k.cities)}%</span>
+          </div>
+          ${bar(wavg(k.cities), 'bg-rose-500/70')}
+        </button>
+      `;
+    }).join('');
+  }
+
+  function renderKodam(id, idx) {
+    const k = REGIONAL_DATA[id].kodam[idx];
+    crumb.innerHTML = `NKRI › ${esc(REGIONAL_DATA[id].name)} › <span class="text-cyan-400">${esc(k.name)}</span>`;
+    backBtn.classList.remove('hidden');
+    const sorted = [...k.cities].sort((a, b) => RANK[b.sev] - RANK[a.sev] || b.n - a.n);
+
+    panel.innerHTML = sorted.map(c => `
+      <div class="p-2.5 bg-neutral-950 border border-neutral-800 rounded-sm space-y-1.5">
+        <div class="flex items-center justify-between font-mono text-xs">
+          <span class="text-neutral-200 font-semibold">${esc(c.name)}</span>
+          ${badge(c.sev)}
+        </div>
+        <div class="text-[11px] font-sans text-neutral-300">${esc(c.topic)}</div>
+        <div class="grid grid-cols-3 gap-2 text-[10px] font-mono text-neutral-500">
+          <div>Narasi<br><b class="text-neutral-200 text-xs">${c.n}</b></div>
+          <div>Sentimen Negatif<br><b class="text-rose-400 text-xs">${c.neg}%</b></div>
+          <div>Amplifikasi Luar<br><b class="${c.out >= 40 ? 'text-amber-400 font-bold' : 'text-neutral-200'} text-xs">${c.out}%</b></div>
+        </div>
+        ${c.out >= 40 ? '<div class="text-[10px] font-mono text-amber-400 pt-1 border-t border-neutral-900"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Indikasi amplifikasi dari luar wilayah — perlu tinjauan analis</div>' : ''}
+      </div>
+    `).join('') + `
+      <div class="pt-2">
+        <button onclick="document.querySelector('[data-view=\\'cases\\']').click()" class="w-full text-center text-[11px] font-mono text-cyan-400 hover:text-cyan-300 py-1.5 border border-cyan-500/30 bg-cyan-950/20 rounded-sm transition-colors">
+          Buka Kasus Investigasi Terkait &rarr;
+        </button>
+      </div>
+    `;
+  }
+
+  function go(island, kodam) {
+    state.island = island;
+    state.kodam = kodam;
+    if (island === null) renderNational();
+    else if (kodam === null) renderIsland(island);
+    else renderKodam(island, kodam);
+    paintMap();
+  }
+
+  document.querySelectorAll('#island-map .island').forEach(g => {
+    g.addEventListener('click', () => go(g.dataset.island, null));
+    g.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        go(g.dataset.island, null);
+      }
+    });
+  });
+
+  panel.addEventListener('click', e => {
+    const isl = e.target.closest('[data-island]');
+    const kod = e.target.closest('[data-kodam]');
+    if (isl) go(isl.dataset.island, null);
+    else if (kod) go(state.island, parseInt(kod.dataset.kodam, 10));
+  });
+
+  backBtn.addEventListener('click', () => go(state.kodam !== null ? state.island : null, null));
+
+  go(null, null);
+})();
+// END: REGIONAL COGNITIVE IMPACT DATA & DRILLDOWN ENGINE
 
 // START: LIVE THREAT FEED POLLING SIMULATOR
 const threatFeedFixture = [

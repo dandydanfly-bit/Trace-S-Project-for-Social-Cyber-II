@@ -37,5 +37,9 @@ class ExampleTest extends TestCase
         $response->assertSee('TRACE-S // Social Cyber Intelligence Platform');
         $response->assertSee('EARLY WARNING DASHBOARD');
         $response->assertSee('5-DIMENSIONAL SIMILARITY');
+        $response->assertSee('Peta Dampak Wilayah Teritorial');
+        $response->assertSee('Kodam V/Brawijaya');
+        $response->assertSee('Kab. Subang');
+        $response->assertSee('doxxing');
     }
 }

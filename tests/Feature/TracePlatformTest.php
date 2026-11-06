@@ -20,6 +20,24 @@ use Tests\TestCase;
 class TracePlatformTest extends TestCase
 {
     /**
+     * Dashboard menampilkan peta dampak wilayah dengan drilldown Pulau -> KODAM -> Kab/Kota,
+     * dan menegaskan bahwa peta bukan pelacakan lokasi/IP pelaku.
+     */
+    public function test_dashboard_shows_regional_impact_map_without_actor_tracking(): void
+    {
+        $operator = User::where('role', 'operator')->first();
+        $this->assertNotNull($operator);
+
+        $response = $this->actingAs($operator)->get('/dashboard');
+        $response->assertStatus(200);
+        $response->assertSee('Peta Dampak Wilayah Teritorial');
+        $response->assertSee('Kodam V\/Brawijaya', false);
+        $response->assertSee('Kab. Subang');
+        $response->assertSee('bukan', false);
+        $response->assertSee('doxxing');
+    }
+
+    /**
      * Test Role-Based Access Control (RBAC) boundaries.
      */
     public function test_rbac_boundaries_for_operator_vs_admin(): void
